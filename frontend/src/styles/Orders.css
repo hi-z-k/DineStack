@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer components {
+
+  .orders-container { @apply max-w-6xl mx-auto p-6 min-h-screen; }
+  .sync-screen { @apply flex flex-col items-center justify-center min-h-[60vh]; }
+  .sync-spinner { @apply animate-spin rounded-full h-12 w-12 border-t-2 border-orange-500 mb-4; }
+  .sync-text { @apply text-gray-400 font-mono tracking-widest uppercase text-xs; }
+
+  .orders-header-row { @apply flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8; }
+  .orders-title { @apply text-4xl font-black text-gray-900 tracking-tighter uppercase italic; }
+  .tab-container { @apply flex bg-gray-100 p-1 rounded-xl; }
+  .tab-btn { @apply px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all; }
+  .tab-btn-active { @apply bg-white text-orange-600 shadow-sm; }
+  .tab-btn-inactive { @apply text-gray-400 hover:text-gray-600; }
+
+  .search-wrapper { @apply relative mb-10; }
+  .search-input-terminal { 
+    @apply w-full bg-white border border-gray-200 px-12 py-4 rounded-2xl shadow-sm 
+    focus:ring-2 focus:ring-orange-500 outline-none transition-all font-mono text-sm; 
+  }
+
+  .orders-grid { @apply grid grid-cols-1 lg:grid-cols-2 gap-6; }
+  .order-card { @apply bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all overflow-hidden relative; }
+  .order-card-body { @apply p-6; }
+
+  .status-badge { @apply px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-sm border; }
+  .status-active { @apply bg-orange-50 text-orange-600 border-orange-100 animate-pulse; }
+  .status-delivered { @apply bg-green-50 text-green-600 border-green-100; }
+  
+  .progress-track { @apply flex gap-1 mb-6; }
+  .progress-step { @apply h-1.5 flex-1 rounded-full; }
+
+  .item-pill-container { @apply flex flex-wrap gap-2; }
+  .item-pill { @apply flex items-center gap-2 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-xl; }
+  .item-pill-qty { @apply text-orange-600 font-bold text-xs; }
+  .item-pill-name { @apply text-gray-700 text-xs font-bold uppercase tracking-tight; }
+
+  .btn-cancel-order { @apply absolute top-4 right-4 text-[10px] font-black bg-red-50 text-red-500 px-3 py-1 rounded-lg hover:bg-red-500 hover:text-white transition-all z-10; }
+  .btn-download-invoice { @apply w-full py-3 bg-gray-50 text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] group-hover:bg-black group-hover:text-white transition-all border-t border-gray-100 flex items-center justify-center gap-2; }
+}

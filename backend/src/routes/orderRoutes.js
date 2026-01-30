@@ -4,7 +4,7 @@ const getRequestBody = require("../utils/bodyParser");
 
 const orderRoutes = async (req, res, pathname, method) => {
   if (pathname === "/api/orders" && method === "POST") {
-    return protect(req, res, async () => { // Added return here to match product style
+    return protect(req, res, async () => {
       const body = await getRequestBody(req);
       return orderController.createOrder(req, res, body);
     });

@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Helper to keep code DRY (Don't Repeat Yourself)
 const sendResponse = (res, status, data) => {
   res.writeHead(status);
   res.end(JSON.stringify(data));
@@ -36,7 +35,7 @@ const userController = {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       const newUser = new User({
-        name: name.replace(/<[^>]*>?/gm, ""), // Basic XSS protection
+        name: name.replace(/<[^>]*>?/gm, ""),
         email,
         password: hashedPassword,
         role: role || "customer",

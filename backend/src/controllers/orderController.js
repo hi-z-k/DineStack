@@ -1,7 +1,6 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
 
-// Helper to keep code clean
 const sendResponse = (res, status, data) => {
   res.writeHead(status);
   res.end(JSON.stringify(data));
@@ -17,7 +16,6 @@ const orderController = {
         return sendResponse(res, 400, { error: "Cart is empty" });
       }
 
-      // Optimization: Fetch all products in one go
       const productIds = items.map(item => item.product);
       const products = await Product.find({ _id: { $in: productIds } });
 
@@ -79,7 +77,7 @@ const orderController = {
 
       if (!updatedOrder) return sendResponse(res, 404, { error: "Order not found" });
 
-      // Socket.io integration
+
       if (global.io) {
         global.io.emit("statusUpdated", updatedOrder);
         global.io.to(orderId).emit("statusUpdated", updatedOrder);
@@ -96,7 +94,6 @@ const orderController = {
       const order = await Order.findById(orderId);
       if (!order) return sendResponse(res, 404, { error: "Order not found" });
 
-      // Permission Logic
       if (req.user.role !== "admin") {
         if (order.user.toString() !== req.user.id) {
           return sendResponse(res, 403, { error: "Unauthorized" });
@@ -115,13 +112,11 @@ const orderController = {
 
   getStats: async (req, res) => {
     try {
-      // 1. Summary Stats
       const summary = await Order.aggregate([
         { $match: { status: { $ne: "cancelled" } } },
         { $group: { _id: null, totalRevenue: { $sum: "$totalAmount" }, totalOrders: { $sum: 1 } } }
       ]);
 
-      // 2. Daily Sales (Last 7 Days)
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
@@ -136,7 +131,6 @@ const orderController = {
         { $sort: { "_id": 1 } }
       ]);
 
-      // 3. Top Selling Item
       const topItemAgg = await Order.aggregate([
         { $match: { status: "delivered" } },
         { $unwind: "$items" },

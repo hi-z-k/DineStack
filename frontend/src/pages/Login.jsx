@@ -4,6 +4,7 @@ import { apiRequest } from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import "../styles/Auth.css"
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -21,8 +22,6 @@ const Login = () => {
 
         if (data.token && data.user) {
             login(data.user, data.token);
-            // toast.success(`WELCOME BACK, ${data.user.name.toUpperCase()}!`);
-            
             if (data.user.role === 'admin') {
                 navigate('/admin');
             } else {
@@ -33,28 +32,27 @@ const Login = () => {
         }
     };
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-white px-4">
+return (
+        <div className="auth-screen">
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-md w-full"
+                className="auth-card-width"
             >
-                {/* BRANDING SECTION */}
-                <div className="text-center mb-10">
-                    <h2 className="text-5xl font-black text-gray-900 tracking-tighter uppercase italic leading-none">
+                <div className="auth-header-container">
+                    <h2 className="auth-title">
                         Login<span className="text-orange-600">.</span>
                     </h2>
-                    <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.3em] mt-4">
+                    <p className="auth-subtitle">
                         Secure Access to the Kitchen
                     </p>
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-1">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Email Identifier</label>
+                    <div className="field-group">
+                        <label className="field-label">Email Identifier</label>
                         <input 
-                            className="w-full bg-gray-50 border-2 border-gray-100 px-5 py-4 rounded-[24px] focus:bg-white focus:border-orange-500 outline-none transition-all font-bold text-gray-800 placeholder:text-gray-300 shadow-sm"
+                            className="input-terminal"
                             type="email" 
                             placeholder="EMAIL@DOMAIN.COM" 
                             value={email} 
@@ -63,10 +61,10 @@ const Login = () => {
                         />
                     </div>
                     
-                    <div className="space-y-1">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Secret Key</label>
+                    <div className="field-group">
+                        <label className="field-label">Secret Key</label>
                         <input 
-                            className="w-full bg-gray-50 border-2 border-gray-100 px-5 py-4 rounded-[24px] focus:bg-white focus:border-orange-500 outline-none transition-all font-bold text-gray-800 placeholder:text-gray-300 shadow-sm"
+                            className="input-terminal"
                             type="password" 
                             placeholder="••••••••" 
                             value={password} 
@@ -78,7 +76,7 @@ const Login = () => {
                     <div className="pt-4">
                         <button 
                             type="submit" 
-                            className="w-full py-5 bg-black hover:bg-orange-600 text-white font-black uppercase tracking-widest rounded-[24px] transition-all shadow-xl shadow-gray-200 active:scale-[0.97] flex items-center justify-center gap-2"
+                            className="btn-auth-primary"
                         >
                             Authorize Access
                             <span className="text-xl">→</span>
@@ -86,8 +84,8 @@ const Login = () => {
                     </div>
                 </form>
 
-                <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                <div className="auth-footer-divider">
+                    <p className="auth-footer-text">
                         New to the platform?{' '}
                         <Link to="/register" className="text-orange-600 hover:text-black transition-colors">
                             Initialize Account

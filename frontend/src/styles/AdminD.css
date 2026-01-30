@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer components {
+  .dashboard-stack { @apply space-y-8; }
+  .dashboard-grid { @apply grid grid-cols-1 md:grid-cols-3 gap-6; }
+  .dashboard-card { @apply bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm; }
+  .stat-card-base { @apply flex flex-col items-start gap-4; }
+  .stat-icon { @apply text-2xl; }
+  .stat-label { @apply text-[9px] font-black text-gray-400 uppercase tracking-widest; }
+  .stat-value { @apply text-2xl font-black italic tracking-tighter; }
+  .chart-header { @apply text-[10px] font-black text-gray-400 uppercase mb-6 tracking-widest; }
+  .chart-viewport { @apply h-[300px] w-full; }
+  .stat-card-content { @apply flex flex-col gap-1; }
+  .chart-title-group { @apply flex justify-between items-end mb-6; }
+  .stat-card-base { 
+    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-md cursor-default; 
+  }
+}

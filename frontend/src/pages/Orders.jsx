@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { apiRequest } from '../api';
+import { apiRequest, SOCKET_URL } from '../api';
 import { downloadInvoice } from '../utils/invoiceGenerator';
 import { io } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast'; 
+import "../styles/Orders.css"
 
-const socket = io('http://localhost:5000');
+const socket = io(SOCKET_URL);
 
 const Orders = () => {
     const [myOrders, setMyOrders] = useState([]);
@@ -60,31 +61,27 @@ const Orders = () => {
     });
 
     if (loading) return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-orange-500 mb-4"></div>
-            <p className="text-gray-400 font-mono tracking-widest uppercase text-xs">Syncing with Kitchen...</p>
+        <div className="sync-screen">
+            <div className="sync-spinner"></div>
+            <p className="sync-text">Syncing with Kitchen...</p>
         </div>
     );
 
-    return (
-        <div className="max-w-6xl mx-auto p-6 min-h-screen">
-            {/* Header & Controls */}
+ return (
+        <div className="orders-container">
             <div className="mb-10">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div className="orders-header-row">
                     <div>
-                        <h1 className="text-4xl font-black text-gray-900 tracking-tighter uppercase italic">
-                            My Orders
-                        </h1>
+                        <h1 className="orders-title">My Orders</h1>
                         <p className="text-gray-400 text-sm font-medium">Tracking your delicious journey in real-time</p>
                     </div>
 
-                    <div className="flex bg-gray-100 p-1 rounded-xl">
+                    <div className="tab-container">
                         {['all', 'active', 'delivered'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setFilter(tab)}
-                                className={`px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition-all ${filter === tab ? 'bg-white text-orange-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'
-                                    }`}
+                                className={`tab-btn ${filter === tab ? 'tab-btn-active' : 'tab-btn-inactive'}`}
                             >
                                 {tab}
                             </button>
@@ -92,11 +89,11 @@ const Orders = () => {
                     </div>
                 </div>
 
-                <div className="relative">
+                <div className="search-wrapper">
                     <input
                         type="text"
                         placeholder="Search by Order ID (e.g. 5F2A...)"
-                        className="w-full bg-white border border-gray-200 px-12 py-4 rounded-2xl shadow-sm focus:ring-2 focus:ring-orange-500 outline-none transition-all font-mono text-sm"
+                        className="search-input-terminal"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -104,8 +101,7 @@ const Orders = () => {
                 </div>
             </div>
 
-            {/* Orders Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="orders-grid">
                 <AnimatePresence>
                     {filteredOrders.length === 0 ? (
                         <motion.div
@@ -122,46 +118,41 @@ const Orders = () => {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                className="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all overflow-hidden group relative"
+                                className="order-card group"
                             >
                                 {order.status === 'pending' && (
                                     <button
                                         onClick={() => handleCancelOrder(order._id)}
-                                        className="absolute top-4 right-4 text-[10px] font-black bg-red-50 text-red-500 px-3 py-1 rounded-lg hover:bg-red-500 hover:text-white transition-all z-10"
+                                        className="btn-cancel-order"
                                     >
                                         CANCEL
                                     </button>
                                 )}
 
-                                <div className="p-6">
+                                <div className="order-card-body">
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
                                             <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.2em]">Live Tracking</span>
                                             <h3 className="text-xl font-bold text-gray-900 font-mono italic">#{order._id.slice(-8).toUpperCase()}</h3>
                                         </div>
-                                        <div className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-tighter shadow-sm border ${order.status === 'delivered'
-                                            ? 'bg-green-50 text-green-600 border-green-100'
-                                            : 'bg-orange-50 text-orange-600 border-orange-100 animate-pulse'
-                                            }`}>
+                                        <div className={`status-badge ${order.status === 'delivered' ? 'status-delivered' : 'status-active'}`}>
                                             ● {order.status.replace(/-/g, ' ')}
                                         </div>
                                     </div>
 
-                                    {/* Progress Bar */}
-                                    <div className="flex gap-1 mb-6">
-                                        <div className={`h-1.5 flex-1 rounded-full ${order.status !== 'pending' ? 'bg-orange-500' : 'bg-gray-100 animate-pulse'}`} />
-                                        <div className={`h-1.5 flex-1 rounded-full ${['preparing', 'out-for-delivery', 'delivered'].includes(order.status) ? 'bg-orange-500' : 'bg-gray-100'}`} />
-                                        <div className={`h-1.5 flex-1 rounded-full ${order.status === 'delivered' ? 'bg-green-500' : 'bg-gray-100'}`} />
+                                    <div className="progress-track">
+                                        <div className={`progress-step ${order.status !== 'pending' ? 'bg-orange-500' : 'bg-gray-100 animate-pulse'}`} />
+                                        <div className={`progress-step ${['preparing', 'out-for-delivery', 'delivered'].includes(order.status) ? 'bg-orange-500' : 'bg-gray-100'}`} />
+                                        <div className={`progress-step ${order.status === 'delivered' ? 'bg-green-500' : 'bg-gray-100'}`} />
                                     </div>
 
-                                    {/* --- ADDED: FOOD ITEMS LIST --- */}
                                     <div className="mb-6 space-y-2">
                                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Your Items</p>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="item-pill-container">
                                             {order.items && order.items.map((item, idx) => (
-                                                <div key={idx} className="flex items-center gap-2 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-xl">
-                                                    <span className="text-orange-600 font-bold text-xs">{item.quantity}x</span>
-                                                    <span className="text-gray-700 text-xs font-bold uppercase tracking-tight">
+                                                <div key={idx} className="item-pill">
+                                                    <span className="item-pill-qty">{item.quantity}x</span>
+                                                    <span className="item-pill-name">
                                                         {item.name || item.product?.name || "Delicious Food"}
                                                     </span>
                                                 </div>
@@ -187,7 +178,7 @@ const Orders = () => {
 
                                 <button
                                     onClick={() => downloadInvoice(order)}
-                                    className="w-full py-3 bg-gray-50 text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] group-hover:bg-black group-hover:text-white transition-all border-t border-gray-100 flex items-center justify-center gap-2"
+                                    className="btn-download-invoice"
                                 >
                                     Download Invoice
                                 </button>

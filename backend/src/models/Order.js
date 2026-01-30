@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema({
     deliveryAddress: { type: String, required: true },
     driver: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User' // A user with the role 'driver'
+        ref: 'User'
     },
     orderedAt: { type: Date, default: Date.now }
 });

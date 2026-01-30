@@ -1,4 +1,3 @@
-// components/About.jsx
 import { motion } from 'framer-motion';
 
 const About = () => {
@@ -6,7 +5,6 @@ const About = () => {
         <section className="py-24 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row items-center gap-16">
-                    {/* Image Side */}
                     <motion.div 
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -24,7 +22,7 @@ const About = () => {
                         </div>
                     </motion.div>
 
-                    {/* Text Side */}
+
                     <motion.div 
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -43,7 +41,6 @@ const About = () => {
                         
                         <div className="flex gap-8 border-t border-gray-100 pt-8">
                             <div className="text-center">
-                                <p className="text-3xl font-black text-gray-900">10k+</p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Happy Eaters</p>
                             </div>
                             <div className="text-center">

@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer components {
+  .manager-stack { @apply space-y-8; }
+  .manager-card { @apply bg-white p-10 rounded-[32px] border border-gray-100 shadow-sm; }
+  .manager-grid-form { @apply grid grid-cols-1 md:grid-cols-2 gap-6; }
+  .manager-title { @apply text-xl font-black italic uppercase mb-8; }
+  .manager-label { @apply text-[10px] font-black text-gray-400 uppercase mb-2 block tracking-widest; }
+  .manager-input { @apply w-full bg-gray-50 border-none rounded-2xl p-4 text-sm outline-none focus:ring-2 focus:ring-orange-100; }
+  .manager-textarea { @apply w-full bg-gray-50 border-none rounded-2xl p-4 text-sm outline-none h-32; }
+  .manager-file-input { 
+    @apply text-xs font-mono file:mr-4 file:py-2 file:px-4 file:rounded-full 
+    file:border-0 file:text-[10px] file:font-black file:bg-orange-50 
+    file:text-orange-700 hover:file:bg-orange-100; 
+  }
+  .inventory-grid { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4; }
+  .inventory-item-card { @apply bg-white p-4 rounded-3xl border border-gray-100 flex items-center justify-between shadow-sm; }
+  .inventory-thumb { @apply w-12 h-12 rounded-full object-cover border; }
+  .inventory-name { @apply font-black text-[11px] uppercase truncate w-32; }
+  .inventory-price { @apply text-[10px] text-orange-500 font-bold font-mono; }
+  .btn-save { @apply flex-1 bg-black text-white py-5 rounded-2xl font-black uppercase text-xs tracking-[0.4em] hover:bg-orange-500 transition-all; }
+  .btn-cancel-edit { @apply px-6 bg-gray-100 rounded-2xl font-black uppercase text-[10px]; }
+  .btn-edit-float { @apply bg-gray-900 text-white px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all; }
+  /* Image Preview Logic */
+  .preview-container { @apply relative w-24 h-24; }
+  .preview-image { @apply w-full h-full rounded-2xl object-cover border-2 border-orange-500; }
+  .btn-remove-preview { @apply absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 text-[8px] hover:scale-110 transition-transform; }
+  .manager-form-column { @apply space-y-6; }
+  .manager-action-row { @apply flex gap-4; }
+  .inventory-details { @apply flex items-center gap-4; }
+}

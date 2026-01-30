@@ -12,8 +12,6 @@ export const AuthProvider = ({ children }) => {
         const validateToken = async () => {
             if (token) {
                 try {
-                    // This fetches your full profile (including new profilePic and address) 
-                    // whenever the app refreshes or the token changes.
                     const data = await apiRequest('/users/me', 'GET', null, token);
                     if (!data.error) {
                         setUser(data);

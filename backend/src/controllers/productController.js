@@ -1,6 +1,5 @@
 const Product = require("../models/Product");
 
-// Helper for consistent JSON responses
 const sendResponse = (res, status, data) => {
   res.writeHead(status);
   res.end(JSON.stringify(data));
@@ -20,7 +19,6 @@ const productController = {
     try {
       const { name, description, price, category, image } = body;
 
-      // Dynamic Default Image if none provided
       const finalImage =
         image ||
         `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f97316&color=fff&size=512`;
@@ -35,7 +33,6 @@ const productController = {
 
       await newProduct.save();
 
-      // Real-time update for the menu
       if (global.io) global.io.emit("menuUpdated");
 
       sendResponse(res, 201, newProduct);
@@ -72,7 +69,6 @@ const productController = {
         return sendResponse(res, 404, { error: "Product not found" });
       }
 
-      // Notify frontend that an item is gone
       if (global.io) global.io.emit("menuUpdated");
 
       sendResponse(res, 200, { message: "Product deleted" });

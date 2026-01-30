@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer components {
+  .auth-screen { @apply min-h-screen flex items-center justify-center bg-white px-4; }
+  .auth-card-width { @apply max-w-md w-full; }
+  .auth-header-container { @apply text-center mb-10; }
+  .auth-title { @apply text-5xl font-black text-gray-900 tracking-tighter uppercase italic leading-none; }
+  .auth-subtitle { @apply text-[10px] text-gray-400 font-black uppercase tracking-[0.3em] mt-4; }
+  
+  .field-group { @apply space-y-1; }
+  .field-label { @apply text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1; }
+  
+  .input-terminal { 
+    @apply w-full bg-gray-50 border-2 border-gray-100 px-5 py-4 rounded-[24px] 
+    focus:bg-white focus:border-orange-500 outline-none transition-all 
+    font-bold text-gray-800 placeholder:text-gray-300 shadow-sm; 
+  }
+
+  .btn-auth-primary { 
+    @apply w-full py-5 bg-black hover:bg-orange-600 text-white 
+    font-black uppercase tracking-widest rounded-[24px] transition-all 
+    shadow-xl shadow-gray-200 active:scale-[0.97] flex items-center justify-center gap-2; 
+  }
+
+  .auth-footer-divider { @apply mt-8 pt-8 border-t border-gray-100 text-center; }
+  .auth-footer-text { @apply text-[10px] font-black text-gray-400 uppercase tracking-widest; }
+}

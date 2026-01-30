@@ -13,9 +13,19 @@ mongoose
   .then(() => console.log("MongoDB Connected Successfully"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
+const ALLOWED_ORIGINS = [
+  "http://localhost:5173",
+  "https://ethiodelight.vercel.app" 
+];
+
 const server = http.createServer(async (req, res) => {
+  const origin = req.headers.origin;
+
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); 
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
@@ -36,7 +46,6 @@ const server = http.createServer(async (req, res) => {
     return res.end(JSON.stringify({ message: "Welcome to the Restaurant API" }));
   }
 
-  // Surgical execution: If it returns anything other than "not_found", it's done.
   const prodRes = await productRoutes(req, res, pathname, method);
   if (prodRes !== "not_found") return prodRes;
 
@@ -50,17 +59,39 @@ const server = http.createServer(async (req, res) => {
   res.end(JSON.stringify({ error: `Route ${pathname} not found` }));
 });
 
+
 const io = new Server(server, {
-  cors: { origin: "http://localhost:5173", methods: ["GET", "POST"] },
+  cors: {
+    origin: (origin, callback) => {
+      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    methods: ["GET", "POST"],
+  },
 });
 
 io.on("connection", (socket) => {
-  console.log("⚡ User connected:", socket.id);
+  console.log("User connected:", socket.id);
+
   socket.on("newOrderPlaced", (order) => socket.broadcast.emit("fetchAdminOrders", order));
-  socket.on("joinOrder", (orderId) => { socket.join(orderId); console.log(`User joined room: ${orderId}`); });
-  socket.on('orderCancelled', (orderId) => { io.emit('orderDeleted', orderId); });
-  socket.on("disconnect", () => { console.log("User disconnected"); });
+
+  socket.on("joinOrder", (orderId) => {
+    socket.join(orderId);
+    console.log(`User joined room: ${orderId}`);
+  });
+
+  socket.on("orderCancelled", (orderId) => {
+    io.emit("orderDeleted", orderId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
 });
 
 global.io = io;
-server.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
