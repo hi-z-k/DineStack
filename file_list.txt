@@ -1,0 +1,66 @@
+.gitignore
+backend
+    .env
+    controllers
+        orderController.js
+        productController.js
+        userController.js
+    makeAdmin.js
+    models
+        Order.js
+        Product.js
+        User.js
+    package-lock.json
+    package.json
+    seed.js
+    seed2.js
+    src
+        app.js
+        utils
+            authMiddleware.js
+            bodyParser.js
+file_list.txt
+frontend
+    .gitignore
+    eslint.config.js
+    index.html
+    package-lock.json
+    package.json
+    postcss.config.js
+    public
+        vite.svg
+    README.md
+    src
+        api.js
+        App.css
+        App.jsx
+        assets
+            react.svg
+        components
+            About.jsx
+            AdminOrders.jsx
+            FloatingReceipt.jsx
+            Footer
+            Footer.jsx
+            Hero.jsx
+            Navbar.jsx
+            ProfileModal.jsx
+            ProtectedRoute.jsx
+            Testimonials.jsx
+        context
+            AuthContext.jsx
+            CartContext.jsx
+        index.css
+        main.jsx
+        pages
+            Admin.jsx
+            Checkout.jsx
+            Home.jsx
+            Login.jsx
+            Orders.jsx
+            Register.jsx
+        utils
+            invoiceGenerator.js
+    tailwind.config.js
+    vite.config.js
+sample.js
