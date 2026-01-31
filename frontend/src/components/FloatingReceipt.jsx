@@ -32,7 +32,7 @@ const FloatingReceipt = ({ isPinned }) => {
     const timerRef = useRef(null);
 
     // --- MAP STATES ---
-    const [coords, setCoords] = useState([9.0227, 38.7460]); // Addis Ababa
+    const [coords, setCoords] = useState([9.0227, 38.7460]);
     const [isLocating, setIsLocating] = useState(false);
 
     useEffect(() => {

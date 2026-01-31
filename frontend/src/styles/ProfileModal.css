@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer components {
+  .profile-backdrop {
+    @apply fixed inset-0 z-[9998] bg-black/20 backdrop-blur-[2px];
+  }
+  .profile-modal-card {
+    @apply fixed top-24 right-12 w-80 bg-white border border-black/5 
+           shadow-[0_20px_60px_rgba(0,0,0,0.3)] rounded-[2.5rem] z-[9999] 
+           overflow-hidden;
+  }
+  .profile-modal-header {
+    @apply bg-black p-6 text-center;
+  }
+
+  .avatar-wrapper { @apply relative inline-block; }
+  
+  .avatar-img {
+    @apply w-16 h-16 rounded-full object-cover border-2 border-orange-500 mx-auto;
+  }
+
+  .avatar-edit-overlay {
+    @apply absolute inset-0 flex items-center justify-center bg-black/60 
+           rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-all;
+  }
+
+  .user-badge-text {
+    @apply text-orange-500 text-[8px] font-black tracking-[0.3em] mt-2 uppercase;
+  }
+  .profile-form { @apply p-5 space-y-3; }
+  .profile-input-group { @apply space-y-1; }
+  
+  .profile-label {
+    @apply text-[8px] font-black text-gray-400 uppercase ml-2 tracking-widest;
+  }
+
+  .profile-input {
+    @apply w-full bg-gray-50 border border-gray-100 p-2.5 rounded-xl text-xs 
+           outline-none focus:border-orange-500 transition-all font-bold text-black;
+  }
+  .security-divider { @apply border-t border-gray-100 my-2 pt-2; }
+  .security-title {
+    @apply text-[8px] font-black text-orange-600 uppercase ml-2 mb-2 
+           tracking-widest text-center;
+  }
+
+  .security-grid { @apply grid grid-cols-2 gap-2; }
+  .btn-profile-submit {
+    @apply w-full bg-orange-500 text-black py-3 rounded-xl font-black text-xs 
+           uppercase tracking-widest hover:bg-orange-400 transition-all 
+           active:scale-95 shadow-lg shadow-orange-500/20;
+  }
+}

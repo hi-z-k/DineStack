@@ -11,6 +11,7 @@ import FloatingReceipt from '../components/FloatingReceipt';
 import Hero from '../components/Hero';
 import About from "../components/About";
 import Testimonials from '../components/Testimonials';
+import LoadingScreen from '../components/LoadingScreen';
 import AddToCartButton from '../components/AddToCartButton';
 import ProductModal from '../components/ProductModal';
 import CategoryFilter from '../components/CategoryFilter';
@@ -90,13 +91,9 @@ const Home = () => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [selectedIndex, filteredProducts]);
 
-    if (loading) return (
-        <div className="loading-screen text-accent-orange">
-            <span>Cooking...</span>
-        </div>
-    );
+    if (loading) return <LoadingScreen />;
 
-    return (
+return (
         <div className="page-container bg-soft-white">
             <div ref={viewportConstraintsRef} className="viewport-layer" />
             <Hero />
@@ -170,7 +167,6 @@ const Home = () => {
                     <FloatingReceipt isPinned={isPinned} onCheckout={() => navigate("/checkout")} />
                 </motion.div>
             </div>
-
 
             <div className="mobile-bottom-tray">
                 <motion.div drag="y" animate={mobileControls} onDragEnd={handleDragEnd} initial={{ y: "88%" }} className="scroll-sheet">

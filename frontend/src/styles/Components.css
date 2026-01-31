@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@layer components {
+  .search-wrapper {
+    @apply relative w-full md:w-80;
+  }
+  .search-input {
+    @apply w-full bg-transparent border-b-2 border-gray-200 py-2 
+           focus:outline-none focus:border-orange-500 font-mono text-sm 
+           transition-colors uppercase tracking-widest text-white;
+  }
+  .search-icon {
+    @apply absolute right-0 bottom-2 text-gray-300 group-focus-within:text-orange-500 transition-colors;
+  }
+  .testimonial-section {
+    @apply py-24 bg-black overflow-hidden;
+  }
+  .section-header {
+    @apply text-center mb-16;
+  }
+  .section-title {
+    @apply text-white text-4xl font-black uppercase italic tracking-widest;
+  }
+  .title-accent { @apply text-orange-500; }
+  .title-underline { @apply h-1 w-20 bg-orange-500 mx-auto mt-4; }
+  .testimonial-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+  }
+  .testimonial-card {
+    @apply bg-[#111] p-8 rounded-3xl border border-white/5 
+           hover:border-orange-500/50 transition-all;
+  }
+  .star-row { @apply flex gap-1 mb-4; }
+  .star-icon { @apply text-orange-500 text-xs; }
+  .testimonial-quote { @apply text-gray-400 italic mb-6 leading-relaxed; }
+  .author-name { @apply text-white font-bold uppercase tracking-tighter; }
+  .author-tag { @apply text-[9px] text-orange-500 font-black uppercase tracking-widest; }
+}

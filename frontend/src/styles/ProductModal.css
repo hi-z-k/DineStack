@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@layer components {
+  .modal-overlay {
+    @apply fixed inset-0 z-[100] flex items-center justify-center p-4 
+           bg-black/90 backdrop-blur-sm;
+  }
+  .modal-wrapper {
+    @apply relative w-full max-w-4xl flex items-center gap-4;
+  }
+  .btn-modal-nav {
+    @apply text-white text-5xl hover:text-orange-500 transition-colors p-2 
+           hidden md:block select-none cursor-pointer;
+  }
+
+  .modal-card {
+    @apply bg-white rounded-[40px] overflow-hidden flex flex-col md:flex-row 
+           w-full shadow-2xl relative;
+  }
+
+  .modal-image-box {
+    @apply md:w-1/2 h-[300px] md:h-[500px] relative overflow-hidden;
+  }
+  .modal-image { @apply w-full h-full object-cover; }
+  
+  .modal-badge {
+    @apply absolute top-6 left-6 bg-orange-500 text-white px-4 py-1 
+           rounded-full text-[10px] font-black uppercase tracking-widest;
+  }
+
+  .modal-info-box {
+    @apply md:w-1/2 p-10 flex flex-col justify-center bg-white;
+  }
+
+  .btn-modal-close {
+    @apply self-end text-gray-300 hover:text-black mb-4 uppercase 
+           text-[10px] font-black tracking-widest transition-colors;
+  }
+
+  .modal-title {
+    @apply text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-2 leading-none;
+  }
+  .modal-price {
+    @apply text-2xl font-mono text-orange-600 font-bold mb-6;
+  }
+  .modal-desc {
+    @apply text-gray-500 text-sm leading-relaxed mb-8 italic border-l-2 border-orange-100 pl-4;
+  }
+}

@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@layer components {
+  .main-footer {
+    @apply bg-black text-white pt-16 pb-8 border-t border-white/5;
+  }
+  .footer-container {
+    @apply container mx-auto px-6;
+  }
+  .footer-grid {
+    @apply grid grid-cols-1 md:grid-cols-4 gap-12 mb-12;
+  }
+  .footer-brand-stack { @apply space-y-4; }
+  .footer-logo { @apply text-3xl font-black italic tracking-tighter uppercase leading-none; }
+  .footer-logo-highlight { @apply text-orange-500; }
+  .footer-description { @apply text-gray-400 text-sm font-medium leading-relaxed max-w-xs; }
+  .footer-social-row { @apply flex gap-4; }
+  .social-icon-link { @apply hover:text-orange-500 transition-colors; }
+  .footer-column-title { @apply text-xs font-black uppercase tracking-[0.2em] mb-6 text-orange-500; }
+  .footer-link-list { @apply space-y-3 text-sm font-bold uppercase italic; }
+  .footer-nav-link { @apply hover:translate-x-2 transition-transform inline-block; }
+  .footer-static-link { @apply hover:text-white text-gray-400 transition-colors; }
+  .footer-contact-stack { @apply space-y-4 text-sm font-bold; }
+  .contact-item { @apply flex items-center gap-3; }
+  .contact-icon { @apply text-orange-500; }
+  .footer-bottom-bar { @apply border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4; }
+  .footer-copyright { @apply text-[10px] font-black text-gray-500 uppercase tracking-widest text-center md:text-left; }
+}

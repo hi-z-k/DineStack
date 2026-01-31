@@ -1,5 +1,5 @@
-// components/Testimonials.jsx
 import { motion } from 'framer-motion';
+import "../styles/Components.css";
 
 const Testimonials = () => {
     const feedback = [
@@ -9,16 +9,16 @@ const Testimonials = () => {
     ];
 
     return (
-        <section className="py-24 bg-black overflow-hidden">
+        <section className="testimonial-section">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-white text-4xl font-black uppercase italic tracking-widest">
-                        Voices of the <span className="text-orange-500">Community</span>
+                <div className="section-header">
+                    <h2 className="section-title">
+                        Voices of the <span className="title-accent">Community</span>
                     </h2>
-                    <div className="h-1 w-20 bg-orange-500 mx-auto mt-4"></div>
+                    <div className="title-underline" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="testimonial-grid">
                     {feedback.map((item, index) => (
                         <motion.div
                             key={index}
@@ -26,17 +26,17 @@ const Testimonials = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.2 }}
                             viewport={{ once: true }}
-                            className="bg-[#111] p-8 rounded-3xl border border-white/5 hover:border-orange-500/50 transition-all group"
+                            className="testimonial-card group"
                         >
-                            <div className="flex gap-1 mb-4">
+                            <div className="star-row">
                                 {[...Array(5)].map((_, i) => (
-                                    <span key={i} className="text-orange-500 text-xs">★</span>
+                                    <span key={i} className="star-icon">★</span>
                                 ))}
                             </div>
-                            <p className="text-gray-400 italic mb-6 leading-relaxed">"{item.text}"</p>
+                            <p className="testimonial-quote">"{item.text}"</p>
                             <div>
-                                <h4 className="text-white font-bold uppercase tracking-tighter">{item.name}</h4>
-                                <span className="text-[9px] text-orange-500 font-black uppercase tracking-widest">{item.tag}</span>
+                                <h4 className="author-name">{item.name}</h4>
+                                <span className="author-tag">{item.tag}</span>
                             </div>
                         </motion.div>
                     ))}

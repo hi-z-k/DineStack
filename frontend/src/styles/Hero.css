@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@layer components {
+  .hero-container {
+    @apply relative h-[85vh] w-full flex items-center justify-center overflow-hidden bg-black;
+  }
+  .hero-bg-img {
+    @apply absolute inset-0 w-full h-full object-cover;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black via-transparent to-orange-500/10 z-[1];
+  }
+
+  .hero-content {
+    @apply relative z-10 text-center px-4;
+  }
+
+  .hero-title {
+    @apply text-7xl md:text-[11rem] font-black text-white uppercase italic tracking-tighter leading-[0.8];
+  }
+
+  .hero-title-accent {
+    @apply text-orange-500 drop-shadow-[0_0_30px_rgba(249,115,22,0.4)];
+  }
+
+  .hero-subtitle {
+    @apply text-orange-400 font-mono tracking-[0.5em] uppercase text-[10px] md:text-sm mb-6;
+  }
+
+  .btn-hero-order {
+    @apply bg-orange-600 text-white px-10 py-4 rounded-full font-black uppercase italic 
+           tracking-widest text-xs hover:bg-orange-500 transition-all 
+           shadow-[0_0_20px_rgba(234,88,12,0.3)];
+  }
+
+  .hero-scroll-indicator {
+    @apply absolute bottom-10 left-1/2 -translate-x-1/2 z-10;
+  }
+
+  .scroll-line {
+    @apply w-[1px] h-12 bg-gradient-to-b from-orange-500 to-transparent;
+  }
+}

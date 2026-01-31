@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import "../styles/About.css"; 
 
 const AddToCartButton = ({ onAdd }) => {
     const [added, setAdded] = useState(false);
@@ -15,11 +16,7 @@ const AddToCartButton = ({ onAdd }) => {
         <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={handleClick}
-            className={`mt-2 text-[10px] font-black uppercase border px-4 py-2 rounded-lg transition-all duration-300 flex items-center justify-center min-w-[120px] ${
-                added 
-                ? "bg-green-500 border-green-500 text-white" 
-                : "bg-transparent border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white"
-            }`}
+            className={`btn-cart-base ${added ? "btn-cart-success" : "btn-cart-idle"}`}
         >
             <AnimatePresence mode="wait">
                 {added ? (
@@ -28,7 +25,7 @@ const AddToCartButton = ({ onAdd }) => {
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -5 }}
-                        className="flex items-center gap-1"
+                        className="btn-cart-content"
                     >
                         ADDED! ✓
                     </motion.span>

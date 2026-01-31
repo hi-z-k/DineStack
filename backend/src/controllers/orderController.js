@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 const sendResponse = (res, status, data) => {
   res.writeHead(status);
@@ -112,13 +113,16 @@ const orderController = {
 
   getStats: async (req, res) => {
     try {
-      const summary = await Order.aggregate([
+      const summaryAgg = await Order.aggregate([
         { $match: { status: { $ne: "cancelled" } } },
         { $group: { _id: null, totalRevenue: { $sum: "$totalAmount" }, totalOrders: { $sum: 1 } } }
       ]);
 
+      const totalUsers = await User.countDocuments();
+
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
 
       const dailySales = await Order.aggregate([
         { $match: { orderedAt: { $gte: sevenDaysAgo }, status: "delivered" } },
@@ -146,7 +150,11 @@ const orderController = {
       }
 
       sendResponse(res, 200, {
-        summary: summary[0] || { totalRevenue: 0, totalOrders: 0 },
+        summary: {
+          totalRevenue: summaryAgg[0]?.totalRevenue || 0,
+          totalOrders: summaryAgg[0]?.totalOrders || 0,
+          totalUsers: totalUsers || 0
+        },
         dailySales,
         topItem: topItemName,
         activeCouriers: 4,
